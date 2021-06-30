@@ -4,6 +4,45 @@ namespace SpriteKind {
     export const MEGABOOM = SpriteKind.create()
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (candospecialmove == 0) {
+        Indicator_SP.setImage(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . f f f f f f f . . . . 
+            . . . . f 4 4 4 4 4 4 4 f . . . 
+            . . . f 5 f f f f f f f 5 f . . 
+            . . f 2 f 1 1 1 1 1 1 1 f 2 f . 
+            . . f 2 f 1 f 1 1 1 f 1 f 2 f . 
+            . . f 2 f 1 f 1 1 1 f 1 f 2 f . 
+            . . f 2 f 1 1 1 1 1 1 1 f 2 f . 
+            . . f 2 f 1 1 f f f 1 1 f 2 f . 
+            . . f 2 f 1 f 1 1 1 f 1 f 2 f . 
+            . . f 2 f 1 1 1 1 1 1 1 f 2 f . 
+            . . . f 5 f f f f f f f 5 f . . 
+            . . . . f 4 4 4 4 4 4 4 f . . . 
+            . . . . . f f f f f f f . . . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+    } else {
+        Indicator_SP.setImage(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . f f f f f f f . . . . 
+            . . . . f 4 4 4 4 4 4 4 f . . . 
+            . . . f 5 f f f f f f f 5 f . . 
+            . . f 2 f a a a a a a a f 2 f . 
+            . . f 2 f a f a a a f a f 2 f . 
+            . . f 2 f a f a a a f a f 2 f . 
+            . . f 2 f a a a a a a a f 2 f . 
+            . . f 2 f a f a a a f a f 2 f . 
+            . . f 2 f a a f f f a a f 2 f . 
+            . . f 2 f a a a a a a a f 2 f . 
+            . . . f 5 f f f f f f f 5 f . . 
+            . . . . f 4 4 4 4 4 4 4 f . . . 
+            . . . . . f f f f f f f . . . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+    }
     if (candospecialmove > 0) {
         candospecialmove += -1
         SpecialAttack = sprites.create(img`
@@ -68,6 +107,8 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
             music.magicWand.play()
         }
     }
+    pause(500)
+    SpecialAttack.destroy(effects.fire, 250)
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (direction == 1) {
@@ -113,7 +154,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 function EnenmyDeath (Enemy: Sprite) {
     Enemy.destroy(effects.disintegrate, 500)
-    if (Math.percentChance(20)) {
+    if (Math.percentChance(15)) {
         powerup = sprites.create(img`
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
@@ -165,9 +206,13 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.PU, function (sprite, otherSprit
         . . . . . f f f f f f f . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.indicator)
-    Indicator_SP.say("You have a power-up press enter to use it", 2000)
-    Indicator_SP.setPosition(16, 98)
     candospecialmove += 1
+    candospecialmove += 1
+    if (saidthatpoweravail == 0) {
+        Indicator_SP.say("You have a power-up press enter to use it", 2000)
+        saidthatpoweravail = 1
+    }
+    Indicator_SP.setPosition(13, 98)
     otherSprite.destroy(effects.spray, 0)
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite2, otherSprite2) {
@@ -175,12 +220,13 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite2, ot
     info.changeScoreBy(10)
     EnenmyDeath(otherSprite2)
 })
-let Indicator_SP: Sprite = null
+let saidthatpoweravail = 0
 let Jake: Sprite = null
 let powerup: Sprite = null
 let bullet: Sprite = null
 let direction = 0
 let SpecialAttack: Sprite = null
+let Indicator_SP: Sprite = null
 let candospecialmove = 0
 let Player1: Sprite = null
 let zombie_style = [
@@ -435,22 +481,22 @@ scene.setBackgroundImage(img`
     `)
 info.setLife(5)
 Player1 = sprites.create(img`
-    . . . . f f f f f . . . . . . . 
-    . . . f 1 1 1 1 1 f . . . . . . 
-    . . . f 1 1 1 8 1 f . . . . . . 
-    . . . f 1 1 1 8 1 f . . . . . . 
-    . . . f 1 1 1 1 1 f . . . . . . 
-    . . . f 1 1 1 8 8 f . . . . . . 
-    . . . . f f f f f . . . . 5 . . 
-    . . . . . . f . . 6 6 6 6 6 . . 
-    . . . . . . f . f b b b . . . . 
-    . . . . . . f f . b . . . . . . 
-    . . . . . . f . . b . . . . . . 
-    . . . . . . f . . . . . . . . . 
-    . . . . . . f . . . . . . . . . 
-    . . . . . f . f . . . . . . . . 
-    . . . . f . . . f . . . . . . . 
-    . . . f . . . . . f . . . . . . 
+    . . . . . . . f f f f f . . . . 
+    . . . . . . f 1 1 1 1 1 f . . . 
+    . . . . . . f 1 8 1 1 1 f . . . 
+    . . . . . . f 1 8 1 1 1 f . . . 
+    . . . . . . f 1 1 1 1 1 f . . . 
+    . . . . . . f 8 8 1 1 1 f . . . 
+    . . 5 . . . . f f f f f . . . . 
+    . . 6 6 6 6 6 . . f . . . . . . 
+    . . . . b b b f . f . . . . . . 
+    . . . . . . b . f f . . . . . . 
+    . . . . . . b . . f . . . . . . 
+    . . . . . . . . . f . . . . . . 
+    . . . . . . . . . f . . . . . . 
+    . . . . . . . . f . f . . . . . 
+    . . . . . . . f . . . f . . . . 
+    . . . . . . f . . . . . f . . . 
     `, SpriteKind.Player)
 controller.moveSprite(Player1, 100, 100)
 zombie.follow(Player1, 20)
