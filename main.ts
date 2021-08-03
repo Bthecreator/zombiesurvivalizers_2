@@ -3,6 +3,34 @@ namespace SpriteKind {
     export const indicator = SpriteKind.create()
     export const MEGABOOM = SpriteKind.create()
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.PU, function (sprite3, otherSprite3) {
+    Indicator_SP = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . f f f f f f f . . . . 
+        . . . . f 4 4 4 4 4 4 4 f . . . 
+        . . . f 5 f f f f f f f 5 f . . 
+        . . f 2 f a a a a a a a f 2 f . 
+        . . f 2 f a f a a a f a f 2 f . 
+        . . f 2 f a f a a a f a f 2 f . 
+        . . f 2 f a a a a a a a f 2 f . 
+        . . f 2 f a f a a a f a f 2 f . 
+        . . f 2 f a a f f f a a f 2 f . 
+        . . f 2 f a a a a a a a f 2 f . 
+        . . . f 5 f f f f f f f 5 f . . 
+        . . . . f 4 4 4 4 4 4 4 f . . . 
+        . . . . . f f f f f f f . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.indicator)
+    candospecialmove += 1
+    candospecialmove += 1
+    if (saidthatpoweravail == 0) {
+        Indicator_SP.say("You have a power-up press enter to use it", 2000)
+        saidthatpoweravail = 1
+    }
+    Indicator_SP.setPosition(13, 98)
+    otherSprite3.destroy(effects.spray, 0)
+})
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (candospecialmove == 0) {
         Indicator_SP.setImage(img`
@@ -110,6 +138,16 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     pause(500)
     SpecialAttack.destroy(effects.fire, 250)
 })
+sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite2, otherSprite2) {
+    pause(500)
+    info.changeLifeBy(-1)
+    scene.cameraShake(4, 500)
+})
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite22, otherSprite22) {
+    Jake = otherSprite22
+    info.changeScoreBy(10)
+    EnenmyDeath(otherSprite22)
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (direction == 1) {
         bullet = sprites.createProjectileFromSprite(img`
@@ -130,6 +168,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             `, Player1, 300, 0)
+        bullet.setFlag(SpriteFlag.DestroyOnWall, true)
     }
     if (direction == 0) {
         bullet = sprites.createProjectileFromSprite(img`
@@ -150,6 +189,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             `, Player1, -300, 0)
+        bullet.setFlag(SpriteFlag.DestroyOnWall, true)
     }
 })
 function EnenmyDeath (Enemy: Sprite) {
@@ -182,52 +222,14 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.MEGABOOM, function (sprite, other
     info.changeScoreBy(10)
     EnenmyDeath(sprite)
 })
-sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
-    pause(500)
-    info.changeLifeBy(-1)
-    scene.cameraShake(4, 500)
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.PU, function (sprite, otherSprite) {
-    Indicator_SP = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . f f f f f f f . . . . 
-        . . . . f 4 4 4 4 4 4 4 f . . . 
-        . . . f 5 f f f f f f f 5 f . . 
-        . . f 2 f a a a a a a a f 2 f . 
-        . . f 2 f a f a a a f a f 2 f . 
-        . . f 2 f a f a a a f a f 2 f . 
-        . . f 2 f a a a a a a a f 2 f . 
-        . . f 2 f a f a a a f a f 2 f . 
-        . . f 2 f a a f f f a a f 2 f . 
-        . . f 2 f a a a a a a a f 2 f . 
-        . . . f 5 f f f f f f f 5 f . . 
-        . . . . f 4 4 4 4 4 4 4 f . . . 
-        . . . . . f f f f f f f . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.indicator)
-    candospecialmove += 1
-    candospecialmove += 1
-    if (saidthatpoweravail == 0) {
-        Indicator_SP.say("You have a power-up press enter to use it", 2000)
-        saidthatpoweravail = 1
-    }
-    Indicator_SP.setPosition(13, 98)
-    otherSprite.destroy(effects.spray, 0)
-})
-sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite2, otherSprite2) {
-    Jake = otherSprite2
-    info.changeScoreBy(10)
-    EnenmyDeath(otherSprite2)
-})
-let saidthatpoweravail = 0
-let Jake: Sprite = null
 let powerup: Sprite = null
 let bullet: Sprite = null
+let Jake: Sprite = null
 let direction = 0
 let SpecialAttack: Sprite = null
-let Indicator_SP: Sprite = null
+let saidthatpoweravail = 0
 let candospecialmove = 0
+let Indicator_SP: Sprite = null
 let Player1: Sprite = null
 let zombie_style = [
 img`
@@ -479,7 +481,7 @@ scene.setBackgroundImage(img`
     bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
     bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
     `)
-info.setLife(5)
+info.setLife(10000)
 Player1 = sprites.create(img`
     . . . . . . . f f f f f . . . . 
     . . . . . . f 1 1 1 1 1 f . . . 

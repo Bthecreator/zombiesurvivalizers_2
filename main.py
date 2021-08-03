@@ -1,80 +1,118 @@
+@namespace
+class SpriteKind:
+    PU = SpriteKind.create()
+    indicator = SpriteKind.create()
+    MEGABOOM = SpriteKind.create()
+
 def on_b_pressed():
-    if Player1.image == img("""
-        . . . . f f f f f . . . . . . . 
-                . . . f 1 1 1 1 1 f . . . . . . 
-                . . . f 1 1 1 8 1 f . . . . . . 
-                . . . f 1 1 1 8 1 f . . . . . . 
-                . . . f 1 1 1 1 1 f . . . . . . 
-                . . . f 1 1 1 8 8 f . . . . . . 
-                . . . . f f f f f . . . . 5 . . 
-                . . . . . . f . . 6 6 6 6 6 . . 
-                . . . . . . f . f b b b . . . . 
-                . . . . . . f f . b . . . . . . 
-                . . . . . . f . . b . . . . . . 
-                . . . . . . f . . . . . . . . . 
-                . . . . . . f . . . . . . . . . 
-                . . . . . f . f . . . . . . . . 
-                . . . . f . . . f . . . . . . . 
-                . . . f . . . . . f . . . . . .
-    """):
-        Player1.set_image(img("""
-            . . . . f f f f f . . . . . . . 
-                        . . . f 1 1 1 1 1 f . . . . . . 
-                        . . . f 1 1 1 8 1 f . . . . . . 
-                        . . . f 1 1 1 8 1 f . . . . . . 
-                        . . . f 1 1 1 1 1 f . . . . . . 
-                        . . . f 1 1 1 8 8 f . . . . . . 
-                        . . . . f f f f f . . . . . . . 
-                        . . . . . . f . . b . . . . . . 
-                        . . . . . . f . f b 1 1 1 1 . . 
-                        . . . . . . f f . b . . . . . . 
-                        . . . . . . f . . . . . . . . . 
-                        . . . . . . f . . . . . . . . . 
-                        . . . . . . f . . . . . . . . . 
-                        . . . . . f . f . . . . . . . . 
-                        . . . . f . . . f . . . . . . . 
-                        . . . f . . . . . f . . . . . .
+    global candospecialmove, SpecialAttack
+    if candospecialmove == 0:
+        Indicator_SP.set_image(img("""
+            . . . . . . . . . . . . . . . . 
+                        . . . . . . . . . . . . . . . . 
+                        . . . . . f f f f f f f . . . . 
+                        . . . . f 4 4 4 4 4 4 4 f . . . 
+                        . . . f 5 f f f f f f f 5 f . . 
+                        . . f 2 f 1 1 1 1 1 1 1 f 2 f . 
+                        . . f 2 f 1 f 1 1 1 f 1 f 2 f . 
+                        . . f 2 f 1 f 1 1 1 f 1 f 2 f . 
+                        . . f 2 f 1 1 1 1 1 1 1 f 2 f . 
+                        . . f 2 f 1 1 f f f 1 1 f 2 f . 
+                        . . f 2 f 1 f 1 1 1 f 1 f 2 f . 
+                        . . f 2 f 1 1 1 1 1 1 1 f 2 f . 
+                        . . . f 5 f f f f f f f 5 f . . 
+                        . . . . f 4 4 4 4 4 4 4 f . . . 
+                        . . . . . f f f f f f f . . . . 
+                        . . . . . . . . . . . . . . . .
         """))
-    if Player1.image == img("""
-        . . . . . . . f f f f f . . . . 
-                . . . . . . f 1 1 1 1 1 f . . . 
-                . . . . . . f 1 8 1 1 1 f . . . 
-                . . . . . . f 1 8 1 1 1 f . . . 
-                . . . . . . f 1 1 1 1 1 f . . . 
-                . . . . . . f 8 8 1 1 1 f . . . 
-                . . 5 . . . . f f f f f . . . . 
-                . . 6 6 6 6 6 . . f . . . . . . 
-                . . . . b b b f . f . . . . . . 
-                . . . . . . b . f f . . . . . . 
-                . . . . . . b . . f . . . . . . 
-                . . . . . . . . . f . . . . . . 
-                . . . . . . . . . f . . . . . . 
-                . . . . . . . . f . f . . . . . 
-                . . . . . . . f . . . f . . . . 
-                . . . . . . f . . . . . f . . .
-    """):
-        Player1.set_image(img("""
-            . . . . . . . f f f f f . . . . 
-                        . . . . . . f 1 1 1 1 1 f . . . 
-                        . . . . . . f 1 8 1 1 1 f . . . 
-                        . . . . . . f 1 8 1 1 1 f . . . 
-                        . . . . . . f 1 1 1 1 1 f . . . 
-                        . . . . . . f 8 8 1 1 1 f . . . 
-                        . . . . . . . f f f f f . . . . 
-                        . . . . . . b . . f . . . . . . 
-                        . . 1 1 1 1 b f . f . . . . . . 
-                        . . . . . . b . f f . . . . . . 
-                        . . . . . . . . . f . . . . . . 
-                        . . . . . . . . . f . . . . . . 
-                        . . . . . . . . . f . . . . . . 
-                        . . . . . . . . f . f . . . . . 
-                        . . . . . . . f . . . f . . . . 
-                        . . . . . . f . . . . . f . . .
+    else:
+        Indicator_SP.set_image(img("""
+            . . . . . . . . . . . . . . . . 
+                        . . . . . . . . . . . . . . . . 
+                        . . . . . f f f f f f f . . . . 
+                        . . . . f 4 4 4 4 4 4 4 f . . . 
+                        . . . f 5 f f f f f f f 5 f . . 
+                        . . f 2 f a a a a a a a f 2 f . 
+                        . . f 2 f a f a a a f a f 2 f . 
+                        . . f 2 f a f a a a f a f 2 f . 
+                        . . f 2 f a a a a a a a f 2 f . 
+                        . . f 2 f a f a a a f a f 2 f . 
+                        . . f 2 f a a f f f a a f 2 f . 
+                        . . f 2 f a a a a a a a f 2 f . 
+                        . . . f 5 f f f f f f f 5 f . . 
+                        . . . . f 4 4 4 4 4 4 4 f . . . 
+                        . . . . . f f f f f f f . . . . 
+                        . . . . . . . . . . . . . . . .
         """))
+    if candospecialmove > 0:
+        candospecialmove += -1
+        SpecialAttack = sprites.create(img("""
+                ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            .....bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.......
+                            5555b555555555555555fff55555555555555b222b......
+                            5442b555555555555555fff55555555555555b2222b.....
+                            5552b555555555555555fff55555555555555b22222b....
+                            .552b55555555555555555555555555555555b222222b...
+                            .542b5555555555555555f555555555555555b2222222b..
+                            .542b5555555555555ff555ff555555555555b22222222b.
+                            .542b555555555555fff555fff55555555555b2222222b..
+                            5542b555555555555fff555fff55555555555b222222b...
+                            5555b555555555555ff55555ff55555555555b2222bb....
+                            ..55b55555555555555555555555555555555b222b......
+                            .....bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.......
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+                            ................................................
+            """),
+            SpriteKind.MEGABOOM)
+        SpecialAttack.set_flag(SpriteFlag.AUTO_DESTROY, True)
+        SpecialAttack.set_position(Player1.x, Player1.y)
+        SpecialAttack.set_flag(SpriteFlag.STAY_IN_SCREEN, True)
+        if direction == 1:
+            SpecialAttack.set_velocity(600, 50)
+            music.magic_wand.play()
+        if direction == 0:
+            SpecialAttack.set_velocity(-600, 50)
+            music.magic_wand.play()
+    pause(500)
+    SpecialAttack.destroy(effects.fire, 250)
 controller.B.on_event(ControllerButtonEvent.PRESSED, on_b_pressed)
 
 def on_a_pressed():
     global bullet
+    mySprite: Sprite = None
     if direction == 1:
         bullet = sprites.create_projectile_from_sprite(img("""
                 . . . . . . . . . . . . . . . . 
@@ -97,6 +135,7 @@ def on_a_pressed():
             Player1,
             300,
             0)
+        mySprite.set_flag(SpriteFlag.DESTROY_ON_WALL, True)
     if direction == 0:
         bullet = sprites.create_projectile_from_sprite(img("""
                 . . . . . . . . . . . . . . . . 
@@ -119,134 +158,221 @@ def on_a_pressed():
             Player1,
             -300,
             0)
+        mySprite.set_flag(SpriteFlag.DESTROY_ON_WALL, True)
 controller.A.on_event(ControllerButtonEvent.PRESSED, on_a_pressed)
 
-def on_on_overlap(sprite, otherSprite):
-    if Player1.image == img("""
-        . . . . . . . f f f f f . . . . 
-                . . . . . . f 1 1 1 1 1 f . . . 
-                . . . . . . f 1 8 1 1 1 f . . . 
-                . . . . . . f 1 8 1 1 1 f . . . 
-                . . . . . . f 1 1 1 1 1 f . . . 
-                . . . . . . f 8 8 1 1 1 f . . . 
-                . . . . . . . f f f f f . . . . 
-                . . . . . . b . . f . . . . . . 
-                . . 1 1 1 1 b f . f . . . . . . 
-                . . . . . . b . f f . . . . . . 
-                . . . . . . . . . f . . . . . . 
-                . . . . . . . . . f . . . . . . 
-                . . . . . . . . . f . . . . . . 
-                . . . . . . . . f . f . . . . . 
-                . . . . . . . f . . . f . . . . 
-                . . . . . . f . . . . . f . . .
-    """) or Player1.image == img("""
-        . . . . f f f f f . . . . . . . 
-                . . . f 1 1 1 1 1 f . . . . . . 
-                . . . f 1 1 1 8 1 f . . . . . . 
-                . . . f 1 1 1 8 1 f . . . . . . 
-                . . . f 1 1 1 1 1 f . . . . . . 
-                . . . f 1 1 1 8 8 f . . . . . . 
-                . . . . f f f f f . . . . . . . 
-                . . . . . . f . . b . . . . . . 
-                . . . . . . f . f b 1 1 1 1 . . 
-                . . . . . . f f . b . . . . . . 
-                . . . . . . f . . . . . . . . . 
-                . . . . . . f . . . . . . . . . 
-                . . . . . . f . . . . . . . . . 
-                . . . . . f . f . . . . . . . . 
-                . . . . f . . . f . . . . . . . 
-                . . . f . . . . . f . . . . . .
-    """):
-        otherSprite.destroy(effects.disintegrate, 500)
-        info.change_score_by(10)
-    else:
-        pause(500)
-        info.change_life_by(-1)
-sprites.on_overlap(SpriteKind.enemy, SpriteKind.player, on_on_overlap)
+def EnenmyDeath(Enemy: Sprite):
+    global powerup
+    Enemy.destroy(effects.disintegrate, 500)
+    if Math.percent_chance(15):
+        powerup = sprites.create(img("""
+                . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . f f f f f f f . . . . 
+                            . . . . f 4 4 4 4 4 4 4 f . . . 
+                            . . . f 5 f f f f f f f 5 f . . 
+                            . . f 2 f 7 7 7 7 7 7 7 f 2 f . 
+                            . . f 2 f 7 f 7 7 7 f 7 f 2 f . 
+                            . . f 2 f 7 f 7 7 7 f 7 f 2 f . 
+                            . . f 2 f 7 7 7 7 7 7 7 f 2 f . 
+                            . . f 2 f 7 f 7 7 7 f 7 f 2 f . 
+                            . . f 2 f 7 7 f f f 7 7 f 2 f . 
+                            . . f 2 f 7 7 7 7 7 7 7 f 2 f . 
+                            . . . f 5 f f f f f f f 5 f . . 
+                            . . . . f 4 4 4 4 4 4 4 f . . . 
+                            . . . . . f f f f f f f . . . . 
+                            . . . . . . . . . . . . . . . .
+            """),
+            SpriteKind.PU)
+        powerup.x = Enemy.x
+        powerup.y = Enemy.y
 
-def on_b_released():
-    if Player1.image == img("""
-        . . . . f f f f f . . . . . . . 
-                . . . f 1 1 1 1 1 f . . . . . . 
-                . . . f 1 1 1 8 1 f . . . . . . 
-                . . . f 1 1 1 8 1 f . . . . . . 
-                . . . f 1 1 1 1 1 f . . . . . . 
-                . . . f 1 1 1 8 8 f . . . . . . 
-                . . . . f f f f f . . . . . . . 
-                . . . . . . f . . b . . . . . . 
-                . . . . . . f . f b 1 1 1 1 . . 
-                . . . . . . f f . b . . . . . . 
-                . . . . . . f . . . . . . . . . 
-                . . . . . . f . . . . . . . . . 
-                . . . . . . f . . . . . . . . . 
-                . . . . . f . f . . . . . . . . 
-                . . . . f . . . f . . . . . . . 
-                . . . f . . . . . f . . . . . .
-    """):
-        Player1.set_image(img("""
-            . . . . f f f f f . . . . . . . 
-                        . . . f 1 1 1 1 1 f . . . . . . 
-                        . . . f 1 1 1 8 1 f . . . . . . 
-                        . . . f 1 1 1 8 1 f . . . . . . 
-                        . . . f 1 1 1 1 1 f . . . . . . 
-                        . . . f 1 1 1 8 8 f . . . . . . 
-                        . . . . f f f f f . . . . b . . 
-                        . . . . . . f . . b b b b b . . 
-                        . . . . . . f . f b b b . . . . 
-                        . . . . . . f f . b . . . . . . 
-                        . . . . . . f . . b . . . . . . 
-                        . . . . . . f . . . . . . . . . 
-                        . . . . . . f . . . . . . . . . 
-                        . . . . . f . f . . . . . . . . 
-                        . . . . f . . . f . . . . . . . 
-                        . . . f . . . . . f . . . . . .
-        """))
-    if Player1.image == img("""
-        . . . . . . . f f f f f . . . . 
-                . . . . . . f 1 1 1 1 1 f . . . 
-                . . . . . . f 1 8 1 1 1 f . . . 
-                . . . . . . f 1 8 1 1 1 f . . . 
-                . . . . . . f 1 1 1 1 1 f . . . 
-                . . . . . . f 8 8 1 1 1 f . . . 
-                . . . . . . . f f f f f . . . . 
-                . . . . . . b . . f . . . . . . 
-                . . 1 1 1 1 b f . f . . . . . . 
-                . . . . . . b . f f . . . . . . 
-                . . . . . . . . . f . . . . . . 
-                . . . . . . . . . f . . . . . . 
-                . . . . . . . . . f . . . . . . 
-                . . . . . . . . f . f . . . . . 
-                . . . . . . . f . . . f . . . . 
-                . . . . . . f . . . . . f . . .
-    """):
-        Player1.set_image(img("""
-            . . . . . . . f f f f f . . . . 
-                        . . . . . . f 1 1 1 1 1 f . . . 
-                        . . . . . . f 1 8 1 1 1 f . . . 
-                        . . . . . . f 1 8 1 1 1 f . . . 
-                        . . . . . . f 1 1 1 1 1 f . . . 
-                        . . . . . . f 8 8 1 1 1 f . . . 
-                        . . 5 . . . . f f f f f . . . . 
-                        . . 6 6 6 6 6 . . f . . . . . . 
-                        . . . . b b b f . f . . . . . . 
-                        . . . . . . b . f f . . . . . . 
-                        . . . . . . b . . f . . . . . . 
-                        . . . . . . . . . f . . . . . . 
-                        . . . . . . . . . f . . . . . . 
-                        . . . . . . . . f . f . . . . . 
-                        . . . . . . . f . . . f . . . . 
-                        . . . . . . f . . . . . f . . .
-        """))
-controller.B.on_event(ControllerButtonEvent.RELEASED, on_b_released)
+def on_on_overlap(sprite, otherSprite):
+    global Jake
+    Jake = otherSprite
+    info.change_score_by(10)
+    EnenmyDeath(sprite)
+sprites.on_overlap(SpriteKind.enemy, SpriteKind.MEGABOOM, on_on_overlap)
 
 def on_on_overlap2(sprite2, otherSprite2):
-    otherSprite2.destroy(effects.disintegrate, 500)
-    info.change_score_by(10)
-sprites.on_overlap(SpriteKind.projectile, SpriteKind.enemy, on_on_overlap2)
+    pause(500)
+    info.change_life_by(-1)
+    scene.camera_shake(4, 500)
+sprites.on_overlap(SpriteKind.enemy, SpriteKind.player, on_on_overlap2)
 
+def on_on_overlap3(sprite3, otherSprite3):
+    global Indicator_SP, candospecialmove, saidthatpoweravail
+    Indicator_SP = sprites.create(img("""
+            . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . f f f f f f f . . . . 
+                    . . . . f 4 4 4 4 4 4 4 f . . . 
+                    . . . f 5 f f f f f f f 5 f . . 
+                    . . f 2 f a a a a a a a f 2 f . 
+                    . . f 2 f a f a a a f a f 2 f . 
+                    . . f 2 f a f a a a f a f 2 f . 
+                    . . f 2 f a a a a a a a f 2 f . 
+                    . . f 2 f a f a a a f a f 2 f . 
+                    . . f 2 f a a f f f a a f 2 f . 
+                    . . f 2 f a a a a a a a f 2 f . 
+                    . . . f 5 f f f f f f f 5 f . . 
+                    . . . . f 4 4 4 4 4 4 4 f . . . 
+                    . . . . . f f f f f f f . . . . 
+                    . . . . . . . . . . . . . . . .
+        """),
+        SpriteKind.indicator)
+    candospecialmove += 1
+    candospecialmove += 1
+    if saidthatpoweravail == 0:
+        Indicator_SP.say("You have a power-up press enter to use it", 2000)
+        saidthatpoweravail = 1
+    Indicator_SP.set_position(13, 98)
+    otherSprite3.destroy(effects.spray, 0)
+sprites.on_overlap(SpriteKind.player, SpriteKind.PU, on_on_overlap3)
+
+def on_on_overlap4(sprite22, otherSprite22):
+    global Jake
+    Jake = otherSprite22
+    info.change_score_by(10)
+    EnenmyDeath(otherSprite22)
+sprites.on_overlap(SpriteKind.projectile, SpriteKind.enemy, on_on_overlap4)
+
+saidthatpoweravail = 0
+Jake: Sprite = None
+powerup: Sprite = None
 bullet: Sprite = None
 direction = 0
+SpecialAttack: Sprite = None
+Indicator_SP: Sprite = None
+candospecialmove = 0
 Player1: Sprite = None
+zombie_style = [img("""
+        . . . . . . . f f f f f . . . . 
+            . . . . . . f 7 7 7 7 7 f . . . 
+            . . . . . . f 7 2 7 7 7 f . . . 
+            . . . . . . f 7 2 7 7 7 f . . . 
+            . . . . . . f 7 7 7 7 7 f . . . 
+            . . . . . . f 2 2 7 7 7 f . . . 
+            . . . . . . . f f f f f . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . f f f f . f . . . . . . 
+            . . . . . . . . f f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . f . 2 . . . . . 
+            . . . . . . . f . . . 2 . . . . 
+            . . . . . . f . . . . . f . . .
+    """),
+    img("""
+        . . . . . . . f f f 2 2 . . . . 
+            . . . . . . f 7 7 7 3 3 2 . . . 
+            . . . . . . f 7 2 7 3 3 2 . . . 
+            . . . . . . f 7 2 7 7 3 2 . . . 
+            . . . . . . f 7 7 7 7 7 f . . . 
+            . . . . . . f 2 2 7 7 7 f . . . 
+            . . . . . . . f f f f f . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . f f f f . f . . . . . . 
+            . . . . . . . . f f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . f . f . . . . . 
+            . . . . . . . f . . . f . . . . 
+            . . . . . . f . . . . . f . . .
+    """),
+    img("""
+        . . . . . . . f f f f f . . . . 
+            . . . . . . f 7 7 7 7 7 f . . . 
+            . . . . . . f 7 2 7 7 7 f . . . 
+            . . . . . . f 7 2 7 7 7 f . . . 
+            . . . . . . f 7 7 7 7 7 f . . . 
+            . . . . . . f 2 2 7 7 7 f . . . 
+            . . . . . . . 2 2 2 f f . . . . 
+            . . . . . . . . . 2 . . . . . . 
+            . . . . f f f f . 2 . . . . . . 
+            . . . . . . . . f f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . f . f . . . . . 
+            . . . . . . . f . . . f . . . . 
+            . . . . . . f . . . . . f . . .
+    """),
+    img("""
+        . . . . . . . f f f f f . . . . 
+            . . . . . . f 7 7 7 7 7 f . . . 
+            . . . . . . f 7 2 7 7 7 f . . . 
+            . . . . . . f 7 2 7 7 7 f . . . 
+            . . . . . . f 7 7 7 7 7 f . . . 
+            . . . . . . f 2 2 7 7 7 f . . . 
+            . . . . . . . 2 2 2 f f . . . . 
+            . . . . . . . . . 2 . . . . . . 
+            . . . . 2 2 2 2 . f . . . . . . 
+            . . . . . . . . f f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . f . f . . . . . 
+            . . . . . . . f . . . f . . . . 
+            . . . . . . f . . . . . f . . .
+    """),
+    img("""
+        . . . . . . . f f f f f . . . . 
+            . . . . . . f 7 7 7 7 7 f . . . 
+            . . . . . . f 7 2 7 7 7 f . . . 
+            . . . . . . f 7 2 7 7 7 f . . . 
+            . . . . . . f 7 7 7 7 7 f . . . 
+            . . . . . . f 2 2 7 7 7 f . . . 
+            . . . . . . . f f f f f . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . f f f f . f . . . . . . 
+            . . . . . . . . f f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . f . f . . . . . 
+            . . . . . . . f . . . f . . . . 
+            . . . . . . f . . . . . f . . .
+    """),
+    img("""
+        . . . . . . . f f f 2 2 . . . . 
+            . . . . . . f 7 7 7 3 3 2 . . . 
+            . . . . . . 2 7 2 7 3 3 2 . . . 
+            . . . . . . 2 7 2 7 7 7 f . . . 
+            . . . . . . 2 7 7 7 7 7 f . . . 
+            . . . . . . 2 2 2 2 7 7 f . . . 
+            . . . . . . . 2 2 2 f f . . . . 
+            . . . . . . . . . 2 . . . . . . 
+            . . . . 2 2 2 2 . f . . . . . . 
+            . . . . . . . . f f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . f . f . . . . . 
+            . . . . . . . f . . . f . . . . 
+            . . . . . . f . . . . . f . . .
+    """)]
+zombie = sprites.create(img("""
+        . . . . . . . f f f f f . . . . 
+            . . . . . . f 7 7 7 7 7 f . . . 
+            . . . . . . f 7 2 7 7 7 f . . . 
+            . . . . . . f 7 2 7 7 7 f . . . 
+            . . . . . . f 7 7 7 7 7 f . . . 
+            . . . . . . f 2 2 7 7 7 f . . . 
+            . . . . . . . f f f f f . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . f f f f . f . . . . . . 
+            . . . . . . . . f f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . . f . . . . . . 
+            . . . . . . . . f . f . . . . . 
+            . . . . . . . f . . . f . . . . 
+            . . . . . . f . . . . . f . . .
+    """),
+    SpriteKind.enemy)
 scene.set_background_image(img("""
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
         9999999999999999999999999999999999999999999999999999111111111119999999999999999999999999999999999999991111999999999999999999999999999999999999999999111111111111
@@ -371,43 +497,24 @@ scene.set_background_image(img("""
 """))
 info.set_life(5)
 Player1 = sprites.create(img("""
-        . . . . f f f f f . . . . . . . 
-            . . . f 1 1 1 1 1 f . . . . . . 
-            . . . f 1 1 1 8 1 f . . . . . . 
-            . . . f 1 1 1 8 1 f . . . . . . 
-            . . . f 1 1 1 1 1 f . . . . . . 
-            . . . f 1 1 1 8 8 f . . . . . . 
-            . . . . f f f f f . . . . 5 . . 
-            . . . . . . f . . 6 6 6 6 6 . . 
-            . . . . . . f . f b b b . . . . 
-            . . . . . . f f . b . . . . . . 
-            . . . . . . f . . b . . . . . . 
-            . . . . . . f . . . . . . . . . 
-            . . . . . . f . . . . . . . . . 
-            . . . . . f . f . . . . . . . . 
-            . . . . f . . . f . . . . . . . 
-            . . . f . . . . . f . . . . . .
-    """),
-    SpriteKind.player)
-zombie = sprites.create(img("""
         . . . . . . . f f f f f . . . . 
-            . . . . . . f 7 7 7 7 7 f . . . 
-            . . . . . . f 7 2 7 7 7 f . . . 
-            . . . . . . f 7 2 7 7 7 f . . . 
-            . . . . . . f 7 7 7 7 7 f . . . 
-            . . . . . . f 2 2 7 7 7 f . . . 
-            . . . . . . . f f f f f . . . . 
-            . . . . . . . . . f . . . . . . 
-            . . . . f f f f . f . . . . . . 
-            . . . . . . . . f f . . . . . . 
-            . . . . . . . . . f . . . . . . 
+            . . . . . . f 1 1 1 1 1 f . . . 
+            . . . . . . f 1 8 1 1 1 f . . . 
+            . . . . . . f 1 8 1 1 1 f . . . 
+            . . . . . . f 1 1 1 1 1 f . . . 
+            . . . . . . f 8 8 1 1 1 f . . . 
+            . . 5 . . . . f f f f f . . . . 
+            . . 6 6 6 6 6 . . f . . . . . . 
+            . . . . b b b f . f . . . . . . 
+            . . . . . . b . f f . . . . . . 
+            . . . . . . b . . f . . . . . . 
             . . . . . . . . . f . . . . . . 
             . . . . . . . . . f . . . . . . 
             . . . . . . . . f . f . . . . . 
             . . . . . . . f . . . f . . . . 
             . . . . . . f . . . . . f . . .
     """),
-    SpriteKind.enemy)
+    SpriteKind.player)
 controller.move_sprite(Player1, 100, 100)
 zombie.follow(Player1, 20)
 difficulty = 1000
@@ -433,33 +540,6 @@ def on_forever3():
 forever(on_forever3)
 
 def on_forever4():
-    global zombie
-    pause(difficulty)
-    zombie = sprites.create(img("""
-            . . . . . . . f f f f f . . . . 
-                    . . . . . . f 7 7 7 7 7 f . . . 
-                    . . . . . . f 7 2 7 7 7 f . . . 
-                    . . . . . . f 7 2 7 7 7 f . . . 
-                    . . . . . . f 7 7 7 7 7 f . . . 
-                    . . . . . . f 2 2 7 7 7 f . . . 
-                    . . . . . . . f f f f f . . . . 
-                    . . . . . . . . . f . . . . . . 
-                    . . . . f f f f . f . . . . . . 
-                    . . . . . . . . f f . . . . . . 
-                    . . . . . . . . . f . . . . . . 
-                    . . . . . . . . . f . . . . . . 
-                    . . . . . . . . . f . . . . . . 
-                    . . . . . . . . f . f . . . . . 
-                    . . . . . . . f . . . f . . . . 
-                    . . . . . . f . . . . . f . . .
-        """),
-        SpriteKind.enemy)
-    zombie.follow(Player1, 30)
-    zombie.set_position(randint(5, scene.screen_width()),
-        randint(5, scene.screen_height()))
-forever(on_forever4)
-
-def on_forever5():
     global direction
     if controller.left.is_pressed():
         Player1.set_image(img("""
@@ -501,4 +581,14 @@ def on_forever5():
                         . . . f . . . . . f . . . . . .
         """))
         direction = 1
+forever(on_forever4)
+
+def on_forever5():
+    global zombie
+    pause(difficulty)
+    zombie = sprites.create(zombie_style[randint(0, len(zombie_style) - 1)],
+        SpriteKind.enemy)
+    zombie.follow(Player1, 30)
+    zombie.set_position(randint(5, scene.screen_width()),
+        randint(5, scene.screen_height()))
 forever(on_forever5)
